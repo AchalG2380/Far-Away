@@ -1,0 +1,4 @@
+{
+  "dynamic_labels": ["HELLO", "THANK_YOU", "HOW_MUCH", "HELP", "YES", "NO", "PLEASE", "SORRY", "WATER", "RECEIPT"],
+  "letter_labels": ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+}

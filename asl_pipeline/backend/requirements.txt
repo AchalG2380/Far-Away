@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+python-dotenv
+deep-translator
+python-multipart
+groq
+gtts
+mediapipe
+opencv-python-headless
+numpy
+tensorflow-cpu

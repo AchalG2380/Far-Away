@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Maneora ASL Desk — Real-time ASL sign language to text translation.">
+
+  <!-- Camera permissions -->
+  <meta name="permissions-policy" content="camera=*">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Maneora ASL">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Maneora ASL Desk</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* Prevent white flash on load */
+    body { background-color: #0d0f14; margin: 0; }
+  </style>
+</head>
+<body>
+  <!--
+    ASL Camera Platform View Factory
+    Registers the <video> element that camera_service_web.dart creates
+    so Flutter's HtmlElementView can embed it in the widget tree.
+  -->
+  <script>
+    // Register the platform view factory for the ASL camera preview.
+    // camera_service_web.dart stores the video element on window._aslVideoEl
+    // after getUserMedia is granted.
+    window._aslCameraRegistered = false;
+
+    function registerAslCameraView() {
+      if (window._aslCameraRegistered) return;
+      // The actual registration happens inside camera_service_web.dart via
+      // platformViewRegistry. This flag just prevents double-registration.
+      window._aslCameraRegistered = true;
+    }
+  </script>
+
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

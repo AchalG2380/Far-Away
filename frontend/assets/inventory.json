@@ -1,0 +1,14 @@
+{
+  "items": [
+    { "id": "1", "name": "Rice", "price": "₹60", "available": true },
+    { "id": "2", "name": "Sugar", "price": "₹45", "available": true },
+    { "id": "3", "name": "Wheat Flour", "price": "₹55", "available": true },
+    { "id": "4", "name": "Chocolates", "price": "₹40", "available": true },
+    { "id": "5", "name": "Coffee Powder", "price": "₹180", "available": true },
+    { "id": "6", "name": "Butter", "price": "₹55", "available": true },
+    { "id": "7", "name": "Chips", "price": "₹20", "available": true },
+    { "id": "8", "name": "Toothpaste", "price": "₹80", "available": true },
+    { "id": "9", "name": "Oats", "price": "₹120", "available": true },
+    { "id": "10", "name": "Chocos", "price": "₹90", "available": true }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "default": {
+    "A": [
+      "I need help",
+      "How much does this cost?",
+      "Can I get a bag?",
+      "Where is the bathroom?",
+      "Thank you!",
+      "Hello!",
+      "Could you repeat that?"
+    ],
+    "B": [
+      "Hello, how can I help you?",
+      "Of course!",
+      "Let me check that for you",
+      "That will be ₹___",
+      "Please wait a moment",
+      "You're welcome!"
+    ]
+  },
+  "retail_store": {
+    "A": [
+      "Where can I find ___?",
+      "Do you have this in a different size?",
+      "Is this on sale?",
+      "Can I return this?",
+      "Do you have a loyalty card?"
+    ],
+    "B": [
+      "That item is in aisle ___",
+      "Let me check the price",
+      "We have a sale on ___",
+      "Returns are accepted within 7 days",
+      "Would you like a bag?"
+    ]
+  },
+  "coffee_shop": {
+    "A": [
+      "One coffee please",
+      "Can I get oat milk?",
+      "How long is the wait?",
+      "Is this gluten free?",
+      "Can I customise my order?"
+    ],
+    "B": [
+      "What size would you like?",
+      "Any milk preference?",
+      "Your order will be ready in ___ minutes",
+      "We have a special today: ___",
+      "Name for the order?"
+    ]
+  },
+  "bakery": {
+    "A": [
+      "What's fresh today?",
+      "Can I get a box of ___?",
+      "Is this eggless?",
+      "How much for a dozen?",
+      "Can I place a custom order?"
+    ],
+    "B": [
+      "Today's fresh items are ___",
+      "We can customise orders with 24hr notice",
+      "This item is eggless",
+      "A dozen comes to ₹___",
+      "Would you like it packed as a gift?"
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+# ============================================================
+#  ASL Retail Assistant — Master Python Requirements
+#  Install with:  pip install -r requirements.txt
+# ============================================================
+
+# --- Web framework & server ---
+fastapi==0.110.0
+uvicorn[standard]==0.27.1
+python-multipart==0.0.9
+python-dotenv==1.0.1
+
+# --- ML & Vision ---
+mediapipe==0.10.14
+opencv-python==4.10.0.84
+numpy==1.26.4
+
+# --- TensorFlow (CPU only — lighter, works on most laptops) ---
+tensorflow-cpu==2.15.0
+# Protobuf pinned to avoid "GetPrototype" error with mediapipe
+protobuf==3.20.3
+
+# --- AI / LLM ---
+groq==0.11.0
+
+# --- Translation & TTS ---
+deep-translator==1.11.4
+gtts==2.5.1
+
+# --- WebSocket relay ---
+websockets==12.0
+
+# --- Utility ---
+scikit-learn==1.4.0
+pandas==2.2.0
+scipy==1.17.1

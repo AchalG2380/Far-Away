@@ -1,0 +1,29 @@
+{
+  "winner": "Conv1D",
+  "val_acc": 0.9992441534996033,
+  "max_frames": 40,
+  "feat_size": 84,
+  "n_classes": 20,
+  "classes": [
+    "bad",
+    "bathroom",
+    "buy",
+    "cost",
+    "good",
+    "hello",
+    "help",
+    "how",
+    "name",
+    "no",
+    "please",
+    "price",
+    "sorry",
+    "thank you",
+    "time",
+    "water",
+    "what",
+    "when",
+    "where",
+    "yes"
+  ]
+}

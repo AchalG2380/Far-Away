@@ -1,0 +1,25 @@
+# ASL Pipeline — Python Dependencies
+# Install: python -m venv asl_env
+# Activate: asl_env\Scripts\activate
+# Install deps: pip install -r requirements.txt
+
+# Core ML & Vision
+mediapipe==0.10.14
+opencv-python==4.10.0.84
+numpy==1.26.4
+# We don't install tensorflow here, training happens on Google Colab!
+# For inference only (optional if TFLite used natively):
+# tflite-runtime
+
+# Data & Training Tools
+scikit-learn==1.4.0
+pandas==2.2.0
+matplotlib==3.8.2
+seaborn==0.13.2
+scipy==1.17.1
+
+# Server & API (Python backend)
+flask==3.0.0
+flask-cors==4.0.0
+fastapi==0.110.0
+uvicorn==0.27.1

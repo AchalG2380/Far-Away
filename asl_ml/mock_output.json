@@ -1,0 +1,16 @@
+{
+  "status": "sign_detected",
+  "raw_sign": "HELP",
+  "confidence": 0.92,
+  "formatted_sentence_en": "I need help, please.",
+  "formatted_sentence_hi": "मुझे मदद चाहिए, कृपया।",
+  "is_sentence_complete": false,
+  "conversation_en": ["Hello!", "I need help, please."],
+  "conversation_hi": ["नमस्ते!", "मुझे मदद चाहिए, कृपया।"],
+  "suggestions_en": ["I need help, please.", "Can you help me?", "Thank you!"],
+  "suggestions_hi": ["मुझे मदद चाहिए।", "क्या आप मदद कर सकते हैं?", "धन्यवाद!"],
+  "velocity": 0.045,
+  "hands_detected": true,
+  "partial_word": null,
+  "timestamp": 1700000000.0
+}

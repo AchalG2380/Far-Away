@@ -1,0 +1,27 @@
+{
+  "greeting": {
+    "triggers": ["HELLO", "HI"],
+    "A_responses": ["Hello! I need some help.", "Hi there!", "Good morning!"],
+    "B_responses": ["Hello! How can I help you today?", "Welcome! What can I do for you?", "Hi! What are you looking for?"]
+  },
+  "price_inquiry": {
+    "triggers": ["PRICE", "HOW-MUCH", "COST"],
+    "A_responses": ["How much does this cost?", "What is the price of this?", "Is this on sale?"],
+    "B_responses": ["This item costs ₹___", "Let me check the price for you", "We have a discount on this today"]
+  },
+  "help_request": {
+    "triggers": ["HELP", "ASSIST"],
+    "A_responses": ["I need help please", "Can someone assist me?", "I have a question"],
+    "B_responses": ["Of course! What do you need?", "Happy to help! What's the issue?", "Let me get someone to assist you"]
+  },
+  "thank_you": {
+    "triggers": ["THANK", "THANKS"],
+    "A_responses": ["Thank you very much!", "Thanks, I appreciate it!", "Thank you for your help"],
+    "B_responses": ["You're welcome!", "My pleasure!", "Have a great day!"]
+  },
+  "payment": {
+    "triggers": ["PAY", "BILL", "MONEY"],
+    "A_responses": ["I'd like to pay now", "Can I pay by card?", "Do you accept UPI?"],
+    "B_responses": ["Your total is ₹___", "We accept cash and card", "Please tap your card here"]
+  }
+}
