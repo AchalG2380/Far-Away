@@ -280,12 +280,36 @@ print("[Words] Ready!")
 
 # ─────────────────────────────────────────────────────────────
 # LETTERS model -- TFLite
+# Try multiple TFLite backends for compatibility with TF 2.13–2.17+
 # ─────────────────────────────────────────────────────────────
 LETTER_MODEL  = os.path.join(MODELS_DIR, 'asl_letter_model.tflite')
 LETTER_LABELS = os.path.join(MODELS_DIR, 'letter_labels.json')
 
+def _load_tflite_interpreter(model_path: str):
+    """Load TFLite interpreter, compatible with TF 2.13 through 2.17+"""
+    # 1. Try ai_edge_litert (TF 2.16+ replacement package)
+    try:
+        from ai_edge_litert.interpreter import Interpreter
+        interp = Interpreter(model_path=model_path)
+        print("[Letters] Using ai_edge_litert backend")
+        return interp
+    except (ImportError, Exception):
+        pass
+    # 2. Try standalone tflite_runtime package (pip install tflite-runtime)
+    try:
+        import tflite_runtime.interpreter as _tflite
+        interp = _tflite.Interpreter(model_path=model_path)
+        print("[Letters] Using tflite_runtime backend")
+        return interp
+    except (ImportError, Exception):
+        pass
+    # 3. Fallback: use tf.lite (works with TF ≤ 2.14)
+    interp = tf.lite.Interpreter(model_path=model_path)
+    print("[Letters] Using tf.lite backend")
+    return interp
+
 print(f"\n[Letters] {os.path.basename(LETTER_MODEL)}")
-letter_interp = tf.lite.Interpreter(model_path=LETTER_MODEL)
+letter_interp = _load_tflite_interpreter(LETTER_MODEL)
 letter_interp.allocate_tensors()
 l_inp_d = letter_interp.get_input_details()
 l_out_d = letter_interp.get_output_details()

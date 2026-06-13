@@ -23,8 +23,14 @@ except ImportError:
     _FORMATTER_AVAILABLE = False
     print("[gemini_service] SentenceFormatter not available")
 
-# ── Groq client (replaces old Gemini / OpenRouter reference) ─────────────────
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+# ── Groq client — optional, works without API key (offline fallback used) ─────
+_groq_key = os.getenv("GROQ_API_KEY", "").strip()
+if _groq_key:
+    client = Groq(api_key=_groq_key)
+    print("[gemini_service] Groq AI enabled")
+else:
+    client = None
+    print("[gemini_service] No GROQ_API_KEY — using offline fallback (add key to .env for AI features)")
 MODEL = "llama-3.3-70b-versatile"
 FALLBACK_MODEL = "llama-3.1-8b-instant"
 
@@ -83,6 +89,8 @@ Return ONLY a JSON array of 3 strings. No explanation. No markdown.
 Example: ["I need help with billing", "I need help finding a product", "I need help with a return"]"""
 
     try:
+        if not client:
+            raise RuntimeError("No Groq client")
         response = client.chat.completions.create(
             model=MODEL,
             messages=[{"role": "user", "content": prompt}],
@@ -110,6 +118,8 @@ Convert this signed word into ONE natural, complete, polite sentence for a retai
 Return ONLY the sentence. No explanation. No quotes."""
 
     try:
+        if not client:
+            raise RuntimeError("No Groq client")
         response = client.chat.completions.create(
             model=MODEL,
             messages=[{"role": "user", "content": prompt}],
@@ -139,6 +149,8 @@ Give exactly 3 short natural sentences this person is likely trying to say.
 Return ONLY a JSON array of 3 strings. No explanation. No markdown.
 Example: ["I need help", "Can you help me?", "I need assistance"]"""
 
+    if not client:
+        raise RuntimeError("No Groq client — offline mode")
     response = client.chat.completions.create(
         model=model_name,
         messages=[{"role": "user", "content": prompt}],
