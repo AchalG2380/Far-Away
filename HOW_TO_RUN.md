@@ -56,7 +56,7 @@ ASL-Retail-Assistant/
    - Create a Python virtual environment (`.venv`)
    - Install all Python packages
    - Run `flutter pub get`
-   - Create the [asl_pipeline/backend/.env](file:///e:/Acro/Git/Real-Time-ASL-to-Text-Far-Away/Far-Away/asl_pipeline/backend/.env) file from [asl_pipeline/backend/.env.example](file:///e:/Acro/Git/Real-Time-ASL-to-Text-Far-Away/Far-Away/asl_pipeline/backend/.env.example) if it doesn't exist
+   - Create the [asl_pipeline/backend/.env](asl_pipeline/backend/.env) file from [asl_pipeline/backend/.env.example](asl_pipeline/backend/.env.example) if it doesn't exist
 2. **Configure your API Key (Groq)**:
    The backend relies on Groq's LLaMA-3 models for real-time word prediction, smart suggestions, and AI sentence paraphrasing. 
 3. **How to get your free API key**:
@@ -64,7 +64,7 @@ ASL-Retail-Assistant/
    - Register a free account and click on **API Keys** in the sidebar.
    - Click **Create API Key**, name it (e.g. `ASL Retail`), copy the key (starts with `gsk_`).
 4. **Paste key into `.env`**:
-   - Open the file [asl_pipeline/backend/.env](file:///e:/Acro/Git/Real-Time-ASL-to-Text-Far-Away/Far-Away/asl_pipeline/backend/.env)
+   - Open the file [asl_pipeline/backend/.env](asl_pipeline/backend/.env)
    - Set the `GROQ_API_KEY` variable:
      ```env
      GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxxxxxxxxx
@@ -79,8 +79,10 @@ ASL-Retail-Assistant/
 2. It opens 3 windows automatically:
    - **Window 1:** FastAPI backend (port 8000)
    - **Window 2:** Python camera engine (port 8765)
-   - **Window 3:** Flutter app (choose 1=Windows or 2=Chrome)
-3. In Flutter, you'll see the signing screen — show your hand to the camera and sign!
+   - **Window 3:** Flutter app
+3. When Flutter prompts for the target device, **you must select `1` (Windows)**.
+   > ⚠️ **IMPORTANT**: Device A requires the native Windows desktop platform (option `1`) rather than Chrome (`2`) to enable high-framerate local camera capture and WebSocket synchronization.
+4. Once loaded, you'll see the signing screen — show your hand to the camera and sign!
 
 ---
 
@@ -110,25 +112,56 @@ ASL-Retail-Assistant/
 
 ## 🔧 Manual Run (if BAT files don't work)
 
-### Terminal 1 — Backend
+### 💻 Device A — The Signer (Machine with Webcam)
+
+#### Step 1: Start the Backend Server
+Open a terminal in the project root directory and run:
 ```powershell
 cd asl_pipeline\backend
-..\..\venv\Scripts\activate
+..\..\.venv\Scripts\activate
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
+*(Keep this terminal running).*
 
-### Terminal 2 — ASL Camera Engine
+#### Step 2: Start the Python Camera & Sign Engine
+Open a second terminal in the project root directory and run:
 ```powershell
 .\.venv\Scripts\activate
 python combined_asl_live.py
 ```
+*(Keep this terminal running. It will open a webcam window displaying your video feed and landmarker tracking).*
 
-### Terminal 3 — Flutter App
+#### Step 3: Run the Flutter Client
+Open a third terminal in the project root directory and run:
 ```powershell
 cd frontend
 flutter run
-# Choose: 1 (Windows) or 2 (Chrome)
 ```
+Choose `1` (Windows desktop app).
+> ⚠️ **Note**: Device A requires the native Windows desktop platform (option `1`) rather than Chrome (`2`) to enable high-framerate local camera capture and WebSocket synchronization.
+
+---
+
+### 💻 Device B — The Cashier (Machine without Camera)
+
+To run Device B manually without using `START_DEVICE_B.bat`, you must manually point Device B's frontend to Device A's network IP.
+
+#### Step 1: Configure Endpoint Addresses
+1. Locate your Device A's IP address on the local network (e.g., `192.168.1.50`). You can find this by running `ipconfig` on Device A's machine.
+2. Open the file [frontend/lib/core/constants.dart](frontend/lib/core/constants.dart) on Device B's machine.
+3. Update the constants to use Device A's IP address:
+   ```dart
+   static const String localApiBaseUrl = 'http://192.168.1.50:8000'; // Replace with Device A's IP
+   static const String aslEngineHost = '192.168.1.50';             // Replace with Device A's IP
+   ```
+
+#### Step 2: Run the Flutter Client
+Open a terminal in the project root directory on Device B and run:
+```powershell
+cd frontend
+flutter run
+```
+Choose `1` (Windows desktop app) or `2` (Chrome web app).
 
 ---
 
@@ -176,11 +209,11 @@ New-NetFirewallRule -DisplayName "ASL WebSocket" -Direction Inbound -Protocol TC
 
 ## 🔑 API Key Setup & .env Requirements
 
-The backend requires the [asl_pipeline/backend/.env](file:///e:/Acro/Git/Real-Time-ASL-to-Text-Far-Away/Far-Away/asl_pipeline/backend/.env) file for LLM integration. 
+The backend requires the [asl_pipeline/backend/.env](asl_pipeline/backend/.env) file for LLM integration. 
 
 **Steps to Configure:**
 1. Generate a free API key at [https://console.groq.com](https://console.groq.com) by clicking **Create API Key**.
-2. If `SETUP.bat` hasn't created the `.env` file yet, copy [asl_pipeline/backend/.env.example](file:///e:/Acro/Git/Real-Time-ASL-to-Text-Far-Away/Far-Away/asl_pipeline/backend/.env.example) to `.env` manually.
+2. If `SETUP.bat` hasn't created the `.env` file yet, copy [asl_pipeline/backend/.env.example](asl_pipeline/backend/.env.example) to `.env` manually.
 3. Open `asl_pipeline\backend\.env` and configure your keys:
    ```env
    # Mandatory for online AI completions and paraphrasing:
