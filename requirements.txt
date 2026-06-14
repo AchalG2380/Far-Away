@@ -15,6 +15,8 @@ python-multipart==0.0.9
 python-dotenv==1.0.1
 
 # --- Core numerics (pin first — everything depends on these) ---
+# IMPORTANT: numpy MUST stay on 1.x — TF 2.15 was compiled against numpy 1.x
+# numpy 2.x causes: AttributeError: _ARRAY_API not found / np.complex_ removed
 numpy==1.26.4
 # Protobuf: mediapipe needs <5, TF 2.15 needs >=3.20.3 → 4.x is the safe zone
 protobuf==4.25.9
@@ -22,8 +24,11 @@ protobuf==4.25.9
 ml_dtypes==0.5.4
 
 # --- ML & Vision ---
-mediapipe==0.10.14
+# mediapipe depends on opencv-contrib-python — pin to 4.10 to keep numpy 1.x
+# WARNING: opencv-contrib-python 4.11+ requires numpy>=2 which breaks TF 2.15!
+opencv-contrib-python==4.10.0.84
 opencv-python==4.10.0.84
+mediapipe==0.10.14
 
 # --- TensorFlow (CPU only — lighter, works on most laptops) ---
 # Pin to 2.15.x — last version before TFLite internal API broke

@@ -81,8 +81,8 @@ echo       Step A: Core packages...
     "pandas==2.2.0" ^
     "scipy==1.13.1"
 
-echo       Step B: OpenCV...
-"%VPYTHON%" -m pip install --timeout 300 "opencv-python==4.10.0.84"
+echo       Step B: OpenCV (pinned — 4.11+ breaks numpy 1.x!)...
+"%VPYTHON%" -m pip install --timeout 300 "opencv-contrib-python==4.10.0.84" "opencv-python==4.10.0.84"
 
 echo       Step C: TensorFlow (large download ~500MB)...
 "%VPYTHON%" -m pip install --timeout 600 "tensorflow-cpu==2.15.1"
@@ -95,6 +95,9 @@ echo       Step E: MediaPipe + JAX (pinned to avoid Python 3.10 conflicts)...
     "jax==0.5.3" ^
     "jaxlib==0.5.3" ^
     "mediapipe==0.10.14"
+
+echo       Step F: Enforce numpy 1.26.4 (must run last!)...
+"%VPYTHON%" -m pip install "numpy==1.26.4"
 
 echo.
 echo [OK] Python packages installed.
