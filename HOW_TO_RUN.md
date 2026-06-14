@@ -52,16 +52,24 @@ ASL-Retail-Assistant/
 
 ## 🚀 First-Time Setup (Run ONCE)
 
-1. Double-click **`SETUP.bat`**
-2. It will:
+1. Double-click **`SETUP.bat`**. It will:
    - Create a Python virtual environment (`.venv`)
    - Install all Python packages
    - Run `flutter pub get`
-   - Create `.env` file from template
-3. After it finishes, open `asl_pipeline\backend\.env` and add your GROQ key:
-   ```
-   GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxxxxxxxxx
-   ```
+   - Create the [asl_pipeline/backend/.env](file:///e:/Acro/Git/Real-Time-ASL-to-Text-Far-Away/Far-Away/asl_pipeline/backend/.env) file from [asl_pipeline/backend/.env.example](file:///e:/Acro/Git/Real-Time-ASL-to-Text-Far-Away/Far-Away/asl_pipeline/backend/.env.example) if it doesn't exist
+2. **Configure your API Key (Groq)**:
+   The backend relies on Groq's LLaMA-3 models for real-time word prediction, smart suggestions, and AI sentence paraphrasing. 
+3. **How to get your free API key**:
+   - Navigate to [https://console.groq.com](https://console.groq.com)
+   - Register a free account and click on **API Keys** in the sidebar.
+   - Click **Create API Key**, name it (e.g. `ASL Retail`), copy the key (starts with `gsk_`).
+4. **Paste key into `.env`**:
+   - Open the file [asl_pipeline/backend/.env](file:///e:/Acro/Git/Real-Time-ASL-to-Text-Far-Away/Far-Away/asl_pipeline/backend/.env)
+   - Set the `GROQ_API_KEY` variable:
+     ```env
+     GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxxxxxxxxx
+     ```
+   *(Note: The app will run in offline/fallback mode using rule-based templates if this key is missing or empty, but advanced AI suggestions will be disabled).*
 
 ---
 
@@ -166,16 +174,22 @@ New-NetFirewallRule -DisplayName "ASL WebSocket" -Direction Inbound -Protocol TC
 
 ---
 
-## 🔑 API Key Setup
+## 🔑 API Key Setup & .env Requirements
 
-Get a free Groq key (used for AI word suggestions + paraphrasing):
-1. Go to https://console.groq.com
-2. Sign up free → create an API key
-3. Paste into `asl_pipeline\backend\.env`:
+The backend requires the [asl_pipeline/backend/.env](file:///e:/Acro/Git/Real-Time-ASL-to-Text-Far-Away/Far-Away/asl_pipeline/backend/.env) file for LLM integration. 
+
+**Steps to Configure:**
+1. Generate a free API key at [https://console.groq.com](https://console.groq.com) by clicking **Create API Key**.
+2. If `SETUP.bat` hasn't created the `.env` file yet, copy [asl_pipeline/backend/.env.example](file:///e:/Acro/Git/Real-Time-ASL-to-Text-Far-Away/Far-Away/asl_pipeline/backend/.env.example) to `.env` manually.
+3. Open `asl_pipeline\backend\.env` and configure your keys:
+   ```env
+   # Mandatory for online AI completions and paraphrasing:
+   GROQ_API_KEY=gsk_your_groq_key_here
+
+   # Optional admin dashboard panel password:
+   ADMIN_PASSWORD=admin123
    ```
-   GROQ_API_KEY=gsk_your_key_here
-   ```
-The app works without it (offline fallback) but AI features won't be as smart.
+4. Restart the backend process so the uvicorn instance loads the new environment variables.
 
 ---
 

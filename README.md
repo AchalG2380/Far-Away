@@ -27,7 +27,7 @@ No architectural change is needed — an administrator toggle switches the orien
 - **Speech-to-text replies** — Hearing staff can speak their response instead of typing
 
 ### Smart Suggestions (Online Mode)
-- **Real-time prediction** — Mid-gesture completions via Gemini (OpenRouter API)
+- **Real-time prediction** — Mid-gesture completions and AI paraphrasing via LLaMA 3 (Groq Cloud API)
 - **Contextual follow-ups** — Post-message suggestions tailored to store type and conversation context
 - **Role-aware suggestions** — Separate suggestion sets for the signer and the staff member
 
@@ -125,9 +125,20 @@ The admin panel runs on a separate designated device (back-office tablet or mana
 | Component | Technology |
 |---|---|
 | ASL Recognition | TFLite (on-device) |
-| Smart Suggestions | Gemini via OpenRouter API |
+| Smart Suggestions | LLaMA 3 via Groq Cloud API |
 | Translation | Google Translate API / static Hindi dictionary (offline) |
 | Speech-to-Text | Cloud speech service |
+
+---
+
+## Model & Training (Self-Data)
+
+Unlike generic systems, CosmicSigns uses **custom-trained models using our own recorded data (self-data)** tailored for retail and grocery interactions:
+- **Custom Recording**: Sign samples are recorded locally via `collect_data.py`, which captures 126 skeletal keypoints (21 landmarks × 3 coords × 2 hands) per frame.
+- **Model Architectures**:
+  - **Fingerspelling (Alphabet)**: A dense multilayer perceptron TFLite model classified on single-frame static keypoints.
+  - **Dynamic Signs (Words)**: A Conv1D/LSTM neural network trained on 40-frame sequence keypoints.
+- **Augmentation & Export**: Training is performed in Google Colab using Gaussian noise and spatial coordinate scaling augmentation for robustness, and compiled into lightweight `.tflite` (and `.h5`) models for fast, zero-latency inference on CPU.
 
 ---
 
