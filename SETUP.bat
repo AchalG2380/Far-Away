@@ -75,6 +75,7 @@ echo       Step A: Core packages...
     "fastapi==0.110.0" ^
     "uvicorn[standard]==0.27.1" ^
     "groq==0.11.0" ^
+    "httpx==0.27.2" ^
     "deep-translator==1.11.4" ^
     "gtts==2.5.1" ^
     "scikit-learn==1.4.0" ^

@@ -43,6 +43,7 @@ jaxlib==0.5.3
 
 # --- AI / LLM ---
 groq==0.11.0
+httpx==0.27.2
 
 # --- Translation & TTS ---
 deep-translator==1.11.4
