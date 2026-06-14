@@ -510,6 +510,11 @@ class AppState extends ChangeNotifier {
     _wordKpBuffer.clear();
     notifyListeners();
     _connectChatWebSocket(sessionId);
+
+    // Register the new session ID with the Python server so Device B receives it
+    if (!kIsWeb) {
+      socketService.registerSession(sessionId);
+    }
   }
 
   /// Device B calls this with Device A's session ID to sync messages.

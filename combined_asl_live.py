@@ -79,6 +79,20 @@ async def _ws_handler(websocket):
                 if data.get("type") == "session_register":
                     _stored_session_id = data.get("session_id", "")
                     print(f"[WS] Session registered: {_stored_session_id}")
+                    # Broadcast this new session ID to all other connected clients (like Device B)
+                    relay_msg = json.dumps({
+                        "type": "session_info",
+                        "session_id": _stored_session_id
+                    })
+                    dead = set()
+                    for other in list(ws_clients):
+                        if other is websocket:
+                            continue
+                        try:
+                            await other.send(relay_msg)
+                        except Exception:
+                            dead.add(other)
+                    ws_clients -= dead
                 elif data.get("type") == "screen_switch":
                     # Relay to all OTHER connected clients
                     screen = data.get("screen", "")

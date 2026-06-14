@@ -680,22 +680,31 @@ class _OutputViewState extends State<OutputView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '📱 Customer Device Session ID:',
+                          linked
+                              ? '📱 Linked Customer Session ID:'
+                              : '📱 Status: Not Linked',
                           style: GoogleFonts.outfit(
-                            color: Colors.white54,
+                            color: linked ? Colors.greenAccent : Colors.orangeAccent,
                             fontSize: 11,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                         const SizedBox(height: 6),
                         SelectableText(
-                          appState.sessionId.isEmpty
-                              ? 'Loading...'
-                              : appState.sessionId,
-                          style: GoogleFonts.robotoMono(
-                            color: Colors.amber,
-                            fontSize: 13,
-                            letterSpacing: 1,
-                          ),
+                          linked
+                              ? appState.linkedSessionId
+                              : 'Enter the Customer\'s Session ID from Device A below.',
+                          style: linked
+                              ? GoogleFonts.robotoMono(
+                                  color: Colors.amber,
+                                  fontSize: 13,
+                                  letterSpacing: 1,
+                                  fontWeight: FontWeight.bold,
+                                )
+                              : GoogleFonts.outfit(
+                                  color: Colors.white38,
+                                  fontSize: 12,
+                                ),
                         ),
                       ],
                     ),

@@ -49,6 +49,22 @@ class SocketService {
     _tryConnect();
   }
 
+  /// Device A updates its registered session ID on the Python WS server
+  void registerSession(String sessionId) {
+    _mySessionId = sessionId;
+    if (_channel != null && !isDeviceB && sessionId.isNotEmpty) {
+      try {
+        _channel!.sink.add(jsonEncode({
+          'type': 'session_register',
+          'session_id': sessionId,
+        }));
+        print('[SocketService] Registered session: $sessionId');
+      } catch (e) {
+        print('[SocketService] Register session error: $e');
+      }
+    }
+  }
+
   Future<void> _tryConnect() async {
     if (_manuallyDisconnected) return;
 
@@ -59,11 +75,7 @@ class SocketService {
 
       // Device A: register session ID with Python server so Device B gets it
       if (!isDeviceB && _mySessionId != null && _mySessionId!.isNotEmpty) {
-        _channel!.sink.add(jsonEncode({
-          'type': 'session_register',
-          'session_id': _mySessionId,
-        }));
-        print('[SocketService] Registered session: $_mySessionId');
+        registerSession(_mySessionId!);
       }
 
       _subscription = _channel!.stream.listen(
